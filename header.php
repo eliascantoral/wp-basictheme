@@ -34,17 +34,28 @@
         <meta name="theme-color" content="#ffffff">
     </head>
     <body <?php body_class(); ?>>
-        <div id="wrapper" class="hfeed">
-            <header id="header" role="banner">
-                <section id="branding">
-                    <div id="site-title"><?php if ( ! is_singular() ) { echo '<h1>'; } ?><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php esc_attr_e( get_bloginfo( 'name' ), 'blankslate' ); ?>" rel="home"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></a><?php if ( ! is_singular() ) { echo '</h1>'; } ?></div>
-                    <div id="site-description"><?php bloginfo( 'description' ); ?></div>
-                </section>
-                <nav id="menu" role="navigation">
-                    <div id="search">
-                        <?php get_search_form(); ?>
-                    </div>
-                    <?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
-                </nav>
-            </header>
-        <div id="container">
+        <div id="wrapper">
+            <div id="header" class="container-fluid">
+            <div class="container">
+                <header role="banner">
+                    <section id="branding">
+                                        <a href="<?php echo get_home_url(); ?>">
+                                            <?php $thelogo = get_option( 'logo' );
+                                                if($thelogo){
+                                                    echo '<img alt="Brand" src="'.$thelogo.'" height="150px">';
+                                                }else{
+                                                    echo '<img alt="Brand" src="'.get_template_directory_uri().'/images/logo.png" height="150px">';
+                                                }
+                                            ?>
+                                        </a>
+                    </section>
+                    <nav id="menu" role="navigation">
+                        <div id="search">
+                            <?php get_search_form(); ?>
+                        </div>
+                        <?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
+                    </nav>
+                </header>                
+            </div>
+        </div>
+            <div id="content" class="container-fluid">
