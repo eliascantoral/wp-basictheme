@@ -10,36 +10,6 @@ Template Name: Home page
 */
 get_header();
 ?>
-<div class="row">
-    <div class="col-xs-12 col-sm-8 col-md-9">
-        <div class="main-menu">
-            <?php 
-                $pages = get_posts(array(
-                        'post_type' => 'page',
-                        'meta_key' => '_wp_page_template',
-                        'meta_value' => 'mainpage.php',
-                        'posts_per_page'   => 4,
-                        'order'                  => 'ASC',
-                        'orderby'                => 'date',                    
-                ));
-                foreach($pages as $page){                    
-                    ?>
-                        <div class="main-menu-item" align="center">
-                            <?php $url = wp_get_attachment_url( get_post_thumbnail_id($page->ID) );?>
-                            <a href="<?php get_permalink ($page->ID);?>"><img src="<?php echo $url?>" alt="item" width="100px"></a><br>
-                            <a href="<?php get_permalink ($page->ID);?>"><?php echo $page->post_title;?></a>
-                        </div>
-                    <?php                         
-                }
-            ?>
-            
-        </div>
-        
-    </div>
- <div class="col-xs-6 col-sm-4 col-md-3">
-    
-  </div>
-  
-</div>
+<h1>Home page</h1>
 <?php
 get_footer();
