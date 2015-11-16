@@ -174,3 +174,144 @@ add_action( 'init', 'enable_category_taxonomy_for_pages', 500 );
 function enable_category_taxonomy_for_pages() {
     register_taxonomy_for_object_type('category','page');
 }
+
+
+/**************************ThemeOptions*****************************************/
+
+if(function_exists("register_field_group"))
+{
+	register_field_group(array (
+		'id' => 'acf_opciones-de-sitio',
+		'title' => 'Opciones de sitio',
+		'fields' => array (
+			array (
+				'key' => 'field_563d5b8f83291',
+				'label' => 'Logo',
+				'name' => 'logo',
+				'type' => 'image',
+				'save_format' => 'url',
+				'preview_size' => 'thumbnail',
+				'library' => 'all',
+			),
+			array (
+				'key' => 'field_563d5b9c83292',
+				'label' => 'Dirección',
+				'name' => 'direccion',
+				'type' => 'textarea',
+				'default_value' => '',
+				'placeholder' => '',
+				'maxlength' => '',
+				'rows' => '',
+				'formatting' => 'html',
+			),
+			array (
+				'key' => 'field_563d5bc883293',
+				'label' => 'Teléfono',
+				'name' => 'telefono',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_563d5f1cc106c',
+				'label' => 'Correo',
+				'name' => 'correo',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_563d5b1a755a4',
+				'label' => 'Redes sociales',
+				'name' => 'social',
+				'type' => 'repeater',
+				'sub_fields' => array (
+					array (
+						'key' => 'field_563d5b30755a5',
+						'label' => 'imagen',
+						'name' => 'imagen',
+						'type' => 'image',
+						'column_width' => '',
+						'save_format' => 'url',
+						'preview_size' => 'thumbnail',
+						'library' => 'all',
+					),
+					array (
+						'key' => 'field_563d5b47755a6',
+						'label' => 'url',
+						'name' => 'url',
+						'type' => 'text',
+						'column_width' => '',
+						'default_value' => '',
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'formatting' => 'none',
+						'maxlength' => '',
+					),
+				),
+				'row_min' => '',
+				'row_limit' => '',
+				'layout' => 'row',
+				'button_label' => 'Agregar red',
+			),
+			array (
+				'key' => 'field_563d6307a63a1',
+				'label' => 'Banner',
+				'name' => 'banner',
+				'type' => 'repeater',
+				'sub_fields' => array (
+					array (
+						'key' => 'field_563d6319a63a2',
+						'label' => 'Imagen',
+						'name' => 'imagen',
+						'type' => 'image',
+						'column_width' => '',
+						'save_format' => 'url',
+						'preview_size' => 'thumbnail',
+						'library' => 'all',
+					),
+				),
+				'row_min' => '',
+				'row_limit' => '',
+				'layout' => 'table',
+				'button_label' => 'Add Row',
+			),
+			array (
+				'key' => 'field_563ef7e49b43a',
+				'label' => 'Banner 2',
+				'name' => 'banner_2',
+				'type' => 'image',
+				'save_format' => 'url',
+				'preview_size' => 'thumbnail',
+				'library' => 'all',
+			),
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'options_page',
+					'operator' => '==',
+					'value' => 'acf-options',
+					'order_no' => 0,
+					'group_no' => 0,
+				),
+			),
+		),
+		'options' => array (
+			'position' => 'normal',
+			'layout' => 'no_box',
+			'hide_on_screen' => array (
+			),
+		),
+		'menu_order' => 0,
+	));
+}
