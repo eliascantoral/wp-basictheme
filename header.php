@@ -39,15 +39,15 @@
                 <div class="container">
                     <header role="banner">
                         <section id="branding">
-                                            <a href="<?php echo get_home_url(); ?>">
-                                                <?php $thelogo = get_option( 'logo' );
-                                                    if($thelogo){
-                                                        echo '<img alt="Brand" src="'.$thelogo.'" height="50px">';
-                                                    }else{
-                                                        echo '<img alt="Brand" src="'.get_template_directory_uri().'/images/logo.png" height="50px">';
-                                                    }
-                                                ?>
-                                            </a>
+                                                <a href="<?php echo get_home_url(); ?>">
+                                                    <?php $thelogo = get_field('logo', 'option');
+                                                        if($thelogo){
+                                                            echo '<img alt="Brand" src="'.$thelogo.'" height="100px">';
+                                                        }else{
+                                                            echo '<img alt="Brand" src="'.get_template_directory_uri().'/images/logo.png" height="50px">';
+                                                        }
+                                                    ?>
+                                                </a>
                         </section>
                         <nav id="menu" role="navigation">
                             <?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>

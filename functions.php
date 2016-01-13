@@ -66,126 +66,14 @@ return $count;
 }
 
 /***************************************************************************************************/
-function theme_settings_page(){
- ?>
-        <div class="wrap">
-        <h1>Theme Panel</h1>
-        <form method="post" action="options.php" enctype="multipart/form-data">
-            <?php
-                settings_fields("section");
-                do_settings_sections("theme-options");      
-                submit_button(); 
-            ?>          
-        </form>
-        </div>
-    <?php
-}
- 
-function add_theme_menu_item()
-{
-    add_menu_page("@emcode", "@emcode", "manage_options", "theme-panel", "theme_settings_page", null, 99);
-}
- 
-add_action("admin_menu", "add_theme_menu_item");
-
-add_action( 'init', 'create_post_type' );
-function create_post_type() {
-  register_post_type( 'banner',
-    array(
-      'labels' => array(
-        'name' => __( 'Banner' ),
-        'singular_name' => __( 'Banner' )
-      ),
-      'public' => true,
-      'has_archive' => true,
-      'supports' => array('thumbnail','title'),
-    )
-  );
-}
-
-
-/****************************************************************************************************/
-function display_twitter_element()
-{
-    ?>
-        <input type="text" name="twitter_url" id="twitter_url" value="<?php echo get_option('twitter_url'); ?>" />
-    <?php
-}
- 
-function display_facebook_element()
-{
-    ?>
-        <input type="text" name="facebook_url" id="facebook_url" value="<?php echo get_option('facebook_url'); ?>" />
-    <?php
-}
-function display_youtube_element()
-{
-    ?>
-        <input type="text" name="youtube_url" id="youtube_url" value="<?php echo get_option('youtube_url'); ?>" />
-    <?php
-}
-
-function logo_display()
-{
-    if(get_option('logo')){
-            echo '<img src="'.get_option('logo').'" width="200px">';
-        }  
-    ?>
-        <br>
-        <input type="file" id="logo" name="logo" value="<?php echo get_option('logo'); ?>"/> 
-        <?php  
-}
- 
-function handle_logo_upload()
-{   
-    if(!empty($_FILES["logo"]["tmp_name"]))
-    {
-        $urls = wp_handle_upload($_FILES["logo"], array('test_form' => FALSE));
-        $temp = $urls["url"];
-        return $temp;   
-    }      
-    return get_option('logo');
-
-}
-
-function display_theme_panel_fields()
-{
-    add_settings_section("section", "All Settings", null, "theme-options");
-     
-    add_settings_field("twitter_url", "Twitter", "display_twitter_element", "theme-options", "section");
-    add_settings_field("facebook_url", "Facebook", "display_facebook_element", "theme-options", "section");
-    add_settings_field("youtube_url", "Youtube", "display_youtube_element", "theme-options", "section");
-    add_settings_field("logo", "Logo", "logo_display", "theme-options", "section"); 
-    
-    
-    register_setting("section", "twitter_url");
-    register_setting("section", "facebook_url");
-    register_setting("section", "youtube_url");
-    register_setting("section", "logo", "handle_logo_upload");    
-}
- 
-add_action("admin_init", "display_theme_panel_fields");
-
-/***************************************************************************************************************/
-
-
-add_action( 'init', 'enable_category_taxonomy_for_pages', 500 );
-
-function enable_category_taxonomy_for_pages() {
-    register_taxonomy_for_object_type('category','page');
-}
-
-
-/**************************ThemeOptions*****************************************/
-
 if(function_exists("register_field_group"))
 {
 	register_field_group(array (
 		'id' => 'acf_opciones-de-sitio',
-		'title' => 'Opciones de sitio',
+		'title' => 'Opciones de Sitio',
 		'fields' => array (
 			array (
-				'key' => 'field_563d5b8f83291',
+				'key' => 'field_565fc6fd3d9ae',
 				'label' => 'Logo',
 				'name' => 'logo',
 				'type' => 'image',
@@ -194,7 +82,20 @@ if(function_exists("register_field_group"))
 				'library' => 'all',
 			),
 			array (
-				'key' => 'field_563d5b9c83292',
+				'key' => 'field_565fc7173d9af',
+				'label' => 'Altura Logo (px)',
+				'name' => 'altura_logo',
+				'type' => 'number',
+				'default_value' => 100,
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'min' => 10,
+				'max' => '',
+				'step' => '',
+			),
+			array (
+				'key' => 'field_565fc7703d9b0',
 				'label' => 'Dirección',
 				'name' => 'direccion',
 				'type' => 'textarea',
@@ -205,7 +106,7 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 			),
 			array (
-				'key' => 'field_563d5bc883293',
+				'key' => 'field_565fc79f3d9b1',
 				'label' => 'Teléfono',
 				'name' => 'telefono',
 				'type' => 'text',
@@ -213,11 +114,11 @@ if(function_exists("register_field_group"))
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
-				'formatting' => 'html',
+				'formatting' => 'none',
 				'maxlength' => '',
 			),
 			array (
-				'key' => 'field_563d5f1cc106c',
+				'key' => 'field_565fc7b23d9b2',
 				'label' => 'Correo',
 				'name' => 'correo',
 				'type' => 'text',
@@ -229,14 +130,26 @@ if(function_exists("register_field_group"))
 				'maxlength' => '',
 			),
 			array (
-				'key' => 'field_563d5b1a755a4',
-				'label' => 'Redes sociales',
-				'name' => 'social',
+				'key' => 'field_565fc7bf3d9b3',
+				'label' => 'Google Analitics',
+				'name' => 'google_analitics',
+				'type' => 'textarea',
+				'instructions' => '<script>...</script>',
+				'default_value' => '',
+				'placeholder' => '',
+				'maxlength' => '',
+				'rows' => '',
+				'formatting' => 'none',
+			),
+			array (
+				'key' => 'field_565fc8063d9b4',
+				'label' => 'Redes Sociales',
+				'name' => 'redes_sociales',
 				'type' => 'repeater',
 				'sub_fields' => array (
 					array (
-						'key' => 'field_563d5b30755a5',
-						'label' => 'imagen',
+						'key' => 'field_565fc8133d9b5',
+						'label' => 'Imagen',
 						'name' => 'imagen',
 						'type' => 'image',
 						'column_width' => '',
@@ -245,8 +158,8 @@ if(function_exists("register_field_group"))
 						'library' => 'all',
 					),
 					array (
-						'key' => 'field_563d5b47755a6',
-						'label' => 'url',
+						'key' => 'field_565fc8213d9b6',
+						'label' => 'URL',
 						'name' => 'url',
 						'type' => 'text',
 						'column_width' => '',
@@ -260,17 +173,17 @@ if(function_exists("register_field_group"))
 				),
 				'row_min' => '',
 				'row_limit' => '',
-				'layout' => 'row',
-				'button_label' => 'Agregar red',
+				'layout' => 'table',
+				'button_label' => 'Agregar Red Social',
 			),
 			array (
-				'key' => 'field_563d6307a63a1',
-				'label' => 'Banner',
-				'name' => 'banner',
+				'key' => 'field_565fc84f3d9b7',
+				'label' => 'Carrousel',
+				'name' => 'carrousel',
 				'type' => 'repeater',
 				'sub_fields' => array (
 					array (
-						'key' => 'field_563d6319a63a2',
+						'key' => 'field_565fc8673d9b8',
 						'label' => 'Imagen',
 						'name' => 'imagen',
 						'type' => 'image',
@@ -279,20 +192,85 @@ if(function_exists("register_field_group"))
 						'preview_size' => 'thumbnail',
 						'library' => 'all',
 					),
+					array (
+						'key' => 'field_565fc8823d9b9',
+						'label' => 'URL',
+						'name' => 'url',
+						'type' => 'text',
+						'column_width' => '',
+						'default_value' => '',
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'formatting' => 'none',
+						'maxlength' => '',
+					),
+					array (
+						'key' => 'field_565fc8933d9ba',
+						'label' => 'Texto',
+						'name' => 'texto',
+						'type' => 'textarea',
+						'column_width' => '',
+						'default_value' => '',
+						'placeholder' => '',
+						'maxlength' => '',
+						'rows' => '',
+						'formatting' => 'br',
+					),
 				),
 				'row_min' => '',
 				'row_limit' => '',
 				'layout' => 'table',
-				'button_label' => 'Add Row',
+				'button_label' => 'Agregar Imagen',
 			),
 			array (
-				'key' => 'field_563ef7e49b43a',
-				'label' => 'Banner 2',
-				'name' => 'banner_2',
-				'type' => 'image',
-				'save_format' => 'url',
-				'preview_size' => 'thumbnail',
-				'library' => 'all',
+				'key' => 'field_565fc8a63d9bb',
+				'label' => 'SEO Descripción',
+				'name' => 'seo_descripcion',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_565fc9073d9bc',
+				'label' => 'SEO Tags',
+				'name' => 'seo_tags',
+				'type' => 'repeater',
+				'sub_fields' => array (
+					array (
+						'key' => 'field_565fca023d9bd',
+						'label' => 'Texto',
+						'name' => 'texto',
+						'type' => 'text',
+						'column_width' => '',
+						'default_value' => '',
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'formatting' => 'none',
+						'maxlength' => '',
+					),
+				),
+				'row_min' => '',
+				'row_limit' => '',
+				'layout' => 'table',
+				'button_label' => 'Agregar Tag',
+			),
+			array (
+				'key' => 'field_565fca143d9be',
+				'label' => 'SEO Autor',
+				'name' => 'seo_autor',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
 			),
 		),
 		'location' => array (
@@ -314,4 +292,12 @@ if(function_exists("register_field_group"))
 		),
 		'menu_order' => 0,
 	));
+}
+/*************************************************************************************************************/
+
+
+add_action( 'init', 'enable_category_taxonomy_for_pages', 500 );
+
+function enable_category_taxonomy_for_pages() {
+    register_taxonomy_for_object_type('category','page');
 }
